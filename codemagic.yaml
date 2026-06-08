@@ -1,0 +1,19 @@
+workflows:
+  android-debug:
+    name: Android Debug APK
+
+    environment:
+      vars:
+        GRADLE_OPTS: -Dorg.gradle.jvmargs="-Xmx4096m"
+
+    scripts:
+      - name: Create env file
+        script: |
+          echo "GEMINI_API_KEY=$GEMINI_API_KEY" > .env
+
+      - name: Build APK
+        script: |
+          ./gradlew assembleDebug
+
+    artifacts:
+      - app/build/outputs/**/*.apk
